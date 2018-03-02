@@ -1,7 +1,7 @@
 <html>
     <head>
-        <title>Quản Lý Nhà Đất</title>
-        <base href="{{secure_asset('')}}">
+        <title>Trang Quản Trị</title>
+        <base href="{{asset('')}}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -42,7 +42,7 @@
                         <a href="javascript:;" style="color:#fff;">&nbsp;&nbsp;MENU</a>
                     </li> 
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#nhadat">Nhà Đất
+                        <a href="javascript:;" data-toggle="collapse" data-target="#nhadat">Sản phẩm
                         <i class="glyphicon glyphicon-chevron-down"></i>
                         </a>
                         <ul id="nhadat" class="collapse">

@@ -33,38 +33,38 @@ class AdminController extends Controller
     public function add_product_submit(Request $req){
         $this->validate($req,
         [   
-            'tieude'=>'required',
+            'ten'=>'required',
             'loai'=>'required',
             'gia'=>'required|numeric',
-            'diadiem'=>'required',
+            'giakm'=>'numeric',
+            'tinhtrang'=>'required',
             'mota'=>'required',
             'feature_image'=>'required'
         ],
         [
-            'tieude.required'=>'Vui lòng nhập tiêu đề',
-            'loai.required'=>'Chọn 1 trong 2(nhà hoặc đất)',
+            'tieude.required'=>'Vui lòng nhập tên',
+            'loai.required'=>'Chọn loại sản phẩm',
             'gia.required'=>'Vui lòng nhập giá',
             'gia.numeric'=>'Giá vui lòng là số',
-            'diadiem.required'=>'Vui lòng nhập địa điểm',
+            'giakm.numeric'=>'Giá khuyến mãi vui lòng là số',
+            'tinhtrang.required'=>'Vui lòng nhập tình trạng',
             'mota.required'=>'Chưa nhập mô tả',
             'feature_image.required'=>'Chọn ít nhất 1 hình ảnh'
             
         ]);
         $product = new Product;
-        $product->name = $req->tieude;
-        $loai = ProductType::where('name',$req->loai)->first();
-        $product->id_type = $loai->id;
-        $product->unit = $req->loai == "Nhà"?"Căn":"Mảnh";
-        $product->promotion_price = 0;
+        $product->name = $req->ten;
+        $product->id_type = $req->tinhtrang;
+        $product->unit = $req->donvi;
         $product->unit_price = $req->gia;
-        $product->location = $req->diadiem;
+        $product->promotion_price = $req->giakm;
+        $product->new = $req->tinhtrang;
         $product->description = $req->mota;
-        $product->new = 1;
         if($hasLast = Product::all()->last())
             $last = $hasLast->id;
         else
             $last = 0;
-        $slug = $req->tieude.'-'.++$last;
+        $slug = $req->ten.'-'.++$last;
         $product->slug = str_slug($slug,'-');
         if($req->hasFile('feature_image')){
             $image = $req->file('feature_image');
@@ -96,34 +96,38 @@ class AdminController extends Controller
 
     public function update_product(Request $req){
         $prdct = Product::where('id',$req->id)->first();
-        return view('admin.update_product',compact('prdct'));
+        $type = ProductType::all();
+        return view('admin.update_product',compact('prdct','type'));
     }
 
     public function update_product_submit(Request $req){
         $this->validate($req,
         [   
-            'tieude'=>'required',
+            'ten'=>'required',
             'loai'=>'required',
-            'gia'=>'required',
-            'diadiem'=>'required',
+            'gia'=>'required|numeric',
+            'giakm'=>'numeric',
+            'tinhtrang'=>'required',
             'mota'=>'required',
         ],
         [
-            'tieude.required'=>'Vui lòng nhập tiêu đề',
-            'loai.required'=>'Chọn 1 trong 2(nhà hoặc đất)',
+            'ten.required'=>'Vui lòng nhập tiêu đề',
+            'loai.required'=>'Vui lòng chọn loại sản phẩm',
             'gia.required'=>'Vui lòng nhập giá',
-            'diadiem.required'=>'Vui lòng nhập địa điểm',
+            'gia.numeric'=>'Giá vui lòng là số',
+            'giakm.numeric'=>'Vui lòng nhập giá khuyến mãi là số',
+            'tinhtrang.required'=>'Vui lòng nhập tình trạng',
             'mota.required'=>'Chưa nhập mô tả',
         ]);
         $product = Product::where('id',$req->id)->first();
-        $product->name = $req->tieude;
-        $product->id_type = $req->loai == "Nhà"?1:2;
-        $product->unit = $req->loai == "Nhà"?"Căn":"Mảnh";
-        $product->promotion_price = 0;
+        $product->name = $req->ten;
+        $product->id_type = $req->loai;
         $product->unit_price = $req->gia;
-        $product->location = $req->diadiem;
+        $product->promotion_price = $req->giakm;
+        $product->new = $req->tinhtrang;
+        $product->unit = $req->donvi;
         $product->description = $req->mota;
-        $slug = $req->tieude.'-'.$product->id;
+        $slug = $req->ten.'-'.$product->id;
         $product->slug = str_slug($slug,'-');
         
         if($req->hasFile('feature_image')){
@@ -180,10 +184,11 @@ class AdminController extends Controller
 
     public function show_product(Request $req){
         $product = Product::find($req->id);
+        $typename = ProductType::where('id',$product->id_type)->value('name');
         $photos =  ProductImage::where('id_product',$product->id)->get();
         if($view = ProductView::where('id_product',$product->id)->get()->first())
-            return view('admin.show_product',compact('product','photos','view'));
-        return view('admin.show_product',compact('product','photos'));
+            return view('admin.show_product',compact('product','photos','view','typename'));
+        return view('admin.show_product',compact('product','photos','typename'));
     }
 
 

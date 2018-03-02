@@ -16,17 +16,21 @@
     <h5 class="alert alert-success">{{Session::get('message')}}</h5>
     @endif
     <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="tieude">Tiêu Đề</label>
+        <label class="col-md-2 col-form-label" for="ten">Tiêu Đề</label>
         <div class="col-md-10">
-            <input type="text" class="form-control" id="tieude" name="tieude" value="{{$prdct->name}}">
+            <input type="text" class="form-control" id="ten" name="ten" value="{{$prdct->name}}">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-2 col-form-label" for="loai">Loại</label>
         <div class="col-md-10">
-            <select class="form-control" id="loai" name="loai" value="{{$prdct->name == 1 ?"Nhà":"Đất"}}">
-                <option selected>Nhà</option>
-                <option >Đất</option>
+            <select class="form-control" id="loai" name="loai">
+                @foreach($type as $item)
+                    @if($prdct->id_type == $item->id)
+                    <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                    @endif;
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -37,9 +41,29 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="diadiem">Địa điểm</label>
+        <label class="col-md-2 col-form-label" for="giakm">Giá khuyến mãi</label>
         <div class="col-md-10">
-            <input type="text" class="form-control" id="diadiem" name="diadiem" value="{{$prdct->location}}">
+            <input type="text" class="form-control" id="giakm" name="giakm" value="{{$prdct->promotion_price != 0?$prdct->promotion_price:0}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="tinhtrang">Tình trạng</label>
+        <div class="col-md-10">
+            <select class="form-control" name="tinhtrang" id="tinhtrang">
+                @if($prdct->new == 1)
+                <option selected value="1">Mới</option>
+                <option value="0">Cũ</option>
+                @else
+                <option value="1">Mới</option>
+                <option selected value="0">Cũ</option>
+                @endif
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="donvi">Đơn vị</label>
+        <div class="col-md-10">
+            <input class="form-control" type="text" name="donvi" id="donvi" value="{{$prdct->unit}}">
         </div>
     </div>
     <div class="form-group row">

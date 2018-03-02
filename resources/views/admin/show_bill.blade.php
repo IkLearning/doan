@@ -40,7 +40,7 @@
         <div class="col-md-4">
             <aside class="profile-card">
                 <header>
-                    <a href="#">
+                    <a href="source/image/product/admin.png" class="image-link">
                         <img src="source/image/product/admin.png" width="150px" class="hoverZoomLink">
                     </a>
                     <h4>Tạo Bởi: Admin</h4>

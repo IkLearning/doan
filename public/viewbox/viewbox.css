@@ -48,10 +48,10 @@
 	background: inherit;
 	fill: inherit;
 	pointer-events: none;
-	transform: translateX(0px);
+	transform: translateX(3px);
 }
 .viewbox-button-default{
-	fill: #999;
+	fill: #31708f;
 }
 .viewbox-button-default:hover{
     fill: #fff;
@@ -59,8 +59,8 @@
 
 .viewbox-button-close{
 	position:absolute;
-	top:10px;
-	right: 10px;
+	top:40px;
+	right: 30px;
 	z-index:9;
 }
 .viewbox-button-next,
@@ -73,10 +73,10 @@
 	z-index:9;
 }
 .viewbox-button-next{
-	right: 10px;
+	right: 200px;
 }
 .viewbox-button-prev{
-	left: 10px;
+	left: 200px;
 }
 @media (max-width: 480px) {
 	.viewbox-button-close{
@@ -120,7 +120,7 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	background-color: #999;
+	background-color: #31708f;
 	opacity: 0.6;
 	position: absolute;
 	top: 0;

@@ -40,12 +40,18 @@ class PageController extends Controller
         $prdct = Product::where('slug',$req->slug)->first();
         if(!$prdct):
             if($has = Product::where('slug','like',$req->slug.'%')->get()->last()):
-                return redirect()->route('chi-tiet-nha-dat',$has->slug);
+                return redirect()->route('chi-tiet',$has->slug);
             else:
                 return redirect()->route('home');
             endif;
         endif;
         if($productview = ProductView::where('id_product',$prdct->id)->first()):
+            $productview->visited++;
+            $productview->last_visited = now();
+            $productview->save();
+        else:
+            $productview = new ProductView;
+            $productview->id_product = $prdct->id;
             $productview->visited++;
             $productview->last_visited = now();
             $productview->save();

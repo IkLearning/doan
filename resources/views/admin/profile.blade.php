@@ -3,9 +3,12 @@
 <div class="container">
 <aside class="profile-card">
   <header>
-    <a target="_blank" href="#">
+    <a href="source/image/product/admin.png" class="image-link">
       <img src="source/image/product/admin.png" class="hoverZoomLink">
     </a>
+    <br>
+    <br>
+    <br>
     <h1>{{Auth::user()->name}}</h1>
     <h2>Admin</h2>
   </header>

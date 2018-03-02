@@ -27,15 +27,16 @@
 						</div>
 						<div class="col-sm-8">
 							<div class="single-item-body">
-								<p class="single-item-title"><h4>Địa phận: {{$prdct->location}}<h4></p>
+								<h6 class="inner-title">{{$prdct->name}}</h6>
+								<br><br>
 								<p class="single-item-price">
 								@if($prdct->promotion_price == 0)
 									<h4>Giá: <span class="flash-sale">{{number_format($prdct->unit_price)}}</span></h4>
 								@else
+									<span>Giá: </span>
 									<span class="flash-del">{{number_format($prdct->unit_price)}}</span>
 									<span class="flash-sale">{{number_format($prdct->promotion_price)}}</span>
 								@endif
-									<h5><span>(Còn thương lượng)</span></h5>
 								</p>
 							</div>
 
@@ -66,6 +67,9 @@
 						</ul>
 						<div class="panel" id="tab-description">
 							<div class="beta-products-list">
+							<div class="single-item-desc">
+								{!!$prdct->description!!}
+							</div>
 							<div class="row">
 							@foreach($prdctImage as $item)
 							<div class="col-sm-4">
@@ -97,7 +101,7 @@
 								<div class="single-item">
 									<div class="ribbon-wrapper"><div class="ribbon sale">NEW</div></div>
 									<div class="single-item-header">
-										<a href="{{route('chi-tiet-nha-dat',$item->slug)}}"><img src="source/image/product/{{$item->image}}" alt="" height="250px"></a>
+										<a href="{{route('chi-tiet',$item->slug)}}"><img src="source/image/product/{{$item->image}}" alt="" height="250px"></a>
 									</div>
 									<div class="single-item-body">
 									<p class="single-item-title"><h5>{{$item->name}}</h5></p>
@@ -113,7 +117,7 @@
 									</div>
 									<div class="single-item-caption">
 										<a class="add-to-cart pull-left" href="{{route('nha-dat-quan-tam',$item->id)}}"><i class="fa fa-shopping-cart"></i></a>
-										<a class="beta-btn primary" href="{{route('chi-tiet-nha-dat',$item->slug)}}">Chi tiết <i class="fa fa-chevron-right"></i></a>
+										<a class="beta-btn primary" href="{{route('chi-tiet',$item->slug)}}">Chi tiết <i class="fa fa-chevron-right"></i></a>
 										<div class="clearfix"></div>
 									</div>
 								</div>
@@ -132,7 +136,7 @@
 							<div class="beta-sales beta-lists">
 							@foreach($highestProducts as $item)	
 								<div class="media beta-sales-item">
-									<a class="pull-left" href="{{route('chi-tiet-nha-dat',$item->slug)}}"><img src="source/image/product/{{$item->image}}" alt=""></a>
+									<a class="pull-left" href="{{route('chi-tiet',$item->slug)}}"><img src="source/image/product/{{$item->image}}" alt=""></a>
 									<div class="media-body">
 										{{$item->name}}
 										@if($item->promotion == 0)

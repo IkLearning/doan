@@ -10,13 +10,13 @@
                 <h2>Giá: {{number_format($product->unit_price)}}</h2>
             </p>
             <p>
-                <h3>Loại: {{$product->id_type == 1? "Nhà":"Đất"}}</h3>
+                <h2>Giá khuyến mãi: {{number_format($product->promotion_price)}}</h2>
             </p>
             <p>
-                <h3>Khu Vực: {{$product->location}}</h3>
+                <h3>Loại: {{$typename}}</h3>
             </p>
             <p>
-                <h3>{!!$product->description!!}</h3>
+                <h3>Mô tả: {!!$product->description!!}</h3>
             </p>
             <p>
                 <h3>Hình ảnh: {{Count($photos)}}</h3>
@@ -31,7 +31,7 @@
         <div class="col-md-4"   style="padding:15% 5%;">
             <aside class="profile-card">
                 <header>
-                    <a target="_blank" href="#">
+                    <a href="source/image/product/{{$product->image}}" class="image-link">
                     <img src="source/image/product/{{$product->image}}" width="200px" class="hoverZoomLink">
                     </a>
                     @if(isset($view))
