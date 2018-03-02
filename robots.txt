@@ -1,0 +1,4 @@
+User-agen: *
+Allow:/
+Disallow:/nhadatvungtau.org/admin/
+Sitemap:https://nhadatvungtau.org/sitemap.xml/
